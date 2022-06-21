@@ -1,0 +1,61 @@
+paths:
+  embedding_folder: /app/embeddings/
+  groundtruth_folder: /app/data/
+  submission_folder: /app/submissions/
+  results_folder: /app/results/
+
+tasks:
+  - data_id: 01g317-flipped
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
+
+  - data_id: 04hgtk-flipped
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
+
+  - data_id: 04rky-flipped
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
+
+  - data_id: 09j2d-flipped
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
+
+  - data_id: 01g317
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
+
+  - data_id: 04hgtk
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
+
+  - data_id: 04rky
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
+
+  - data_id: 09j2d
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
+
+baselines:
+  - name: neighbor_shapley
+  - name: random
+   # - name: influence_function
+   # - name: mc_shapley
+

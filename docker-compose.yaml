@@ -1,0 +1,9 @@
+services:
+  dataperf-cleaning-submission:
+    container_name: dataperf-cleaning-submission
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./embeddings:/app/embeddings
+      - ./results:/app/results
+      - ./submissions:/app/submissions
