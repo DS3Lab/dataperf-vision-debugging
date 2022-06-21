@@ -47,7 +47,7 @@ git clone git@github.com:DS3Lab/dataperf-vision-cleaning.git
 If you want to run the offline evaluation in your local environment, install the required python packages
 
 ```
-pip install -r dataperf-vision-correction/requirements.txt
+pip install -r requirements.txt
 ```
 
 A template filesystem with the following structure is provided in the repo. By unzipping the resource file, the embeddings and ground truth will be placed in the appropriate folders.
