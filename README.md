@@ -96,7 +96,7 @@ A valid submission for the open division includes the following:
 - A list of data points to be inspected and corrected
 - (Optional) A script of the algorithm/strategy used
 
-Each submission must be a ```.txt``` file. Each row in the file represents the index to the image label that needs to be inspected and corrected.
+Each submission must be a ```.txt``` file. Each row in the file represents the index to the image label that needs to be inspected and corrected. The submission file should be named as ```{data_id}_{your_method_name}.txt```, for example ```01g317_random.txt``` or ```01g317-flipped_neighbor_shapley.txt```.
 
 The included training set file serves as a template of a single submission:
 
