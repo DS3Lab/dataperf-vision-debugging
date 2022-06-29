@@ -1,7 +1,7 @@
 import numpy as np
 import pyarrow as pa
 from sklearn import metrics
-
+from loguru import logger
 def fix(proposed_fixes, train, budget, gt_df):
     if len(proposed_fixes) > budget:
         raise ValueError("Submission takes more budget than expected, {}>{}".format(len(proposed_fixes), budget))
@@ -16,16 +16,27 @@ def fix(proposed_fixes, train, budget, gt_df):
     d = pa.Table.from_pydict(train)
     return d, len(proposed_fixes)
 
-def calc_auc_from_submission(submissions):
+def calc_auc_from_submission(submissions, ratio_cleaned=0.9):
     methods = set([x['submission'] for x in submissions])
     scores = {
-        k: 0 for k in methods
+        k: {
+            'auc': 0,
+            'fraction_fixes': 0
+        } for k in methods
     }
     for method in methods:
         submission = [x for x in submissions if x['submission'] == method]
-        print(f"Calculating AUC for submission {method}...")
+        logger.info(f"Scoring for submission {method}...")
         x = np.array([x['fixes'] for x in submission])
         y = np.array([x['accuracy'] for x in submission])
         auc_score = metrics.auc(x, y)
-        scores[method] = auc_score/len(x)
+        scores[method]['auc'] = auc_score/len(x)
+        """
+        Here calculate the number of fixes that could achieve ratio_cleaned * accuracy (achieved on cleaned dataset)
+        """
+        target_y = ratio_cleaned * y[len(x)-1]
+        fraction_fixes = next((x for x in y if x > target_y), -1)
+        # the name should be changed later...
+        scores[method]['fraction_fixes'] = fraction_fixes/len(x)
+    
     return scores

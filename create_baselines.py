@@ -1,15 +1,15 @@
 import os
+import sys
 import yaml
 import numpy as np
 from yaml import Loader
+
 from pyarrow import parquet as pq
+from timeit import default_timer as timer
 from baselines.shapley import ShapleyAppraiser
 from baselines.random_pick import RandomAppraiser
 from datascope.importance.shapley import ImportanceMethod
 from baselines.influence_function import InfluenceFunctionAppraiser
-from datascope.importance.shapley import ImportanceMethod
-from timeit import default_timer as timer
-import sys
 
 if __name__ == "__main__":
     is_docker = False 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
             else:
                 raise ValueError(f"Unknown algorithm {appraiser['name']}")
         
-        baselines.append(importance_appraiser)
+            baselines.append(importance_appraiser)
 
         train_filepath = os.path.join(setup['paths']['embedding_folder'], f"{task['data_id']}_train_{task['noise_level']}_{task['train_size']}.parquet")
         test_filepath = os.path.join(setup['paths']['embedding_folder'], f"{task['data_id']}_test_{task['test_size']}.parquet")
