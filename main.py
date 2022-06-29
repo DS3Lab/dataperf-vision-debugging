@@ -85,7 +85,7 @@ def run_correction_eval(
         result = {
             "before_acc": before_acc,
             "submitted_evaluations": submitted_evaluations,
-            "auc": calc_auc_from_submission(submitted_evaluations)
+            "auc_score": calc_auc_from_submission(submitted_evaluations)
         }
         with open(os.path.join(results_path, f"{data_id}_evaluation.json"), "w") as f:
             json.dump(result, f)

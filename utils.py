@@ -16,9 +16,16 @@ def fix(proposed_fixes, train, budget, gt_df):
     d = pa.Table.from_pydict(train)
     return d, len(proposed_fixes)
 
-def calc_auc_from_submission(submission):
-    method = submission['submission']
-    print(f"Calculating AUC for submission {method}...")
-    x = np.array([x['fixes'] for x in submission])
-    y = np.array([x['accuracy'] for x in submission])
-    return metrics.auc(x, y)
+def calc_auc_from_submission(submissions):
+    methods = set([x['submission'] for x in submissions])
+    scores = {
+        k: 0 for k in methods
+    }
+    for method in methods:
+        submission = [x for x in submissions if x['submission'] == method]
+        print(f"Calculating AUC for submission {method}...")
+        x = np.array([x['fixes'] for x in submission])
+        y = np.array([x['accuracy'] for x in submission])
+        auc_score = metrics.auc(x, y)
+        scores[method] = auc_score/len(x)
+    return scores

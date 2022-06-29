@@ -34,26 +34,26 @@ Installation instructions can be found at the following links: [Docker](https://
 For running locally:
 - Python (>= 3.7)
 
-The current version of this repo has only been tested locally on python 3.8.
+The current version of this repo has only been tested locally on Python 3.8 and Ubuntu 22.04.
 
 ## Installation
 
 Clone this repo to your local machine
 
 ```
-git clone git@github.com:DS3Lab/dataperf-vision-cleaning.git
+$ git clone git@github.com:DS3Lab/dataperf-vision-cleaning.git
 ```
 
 If you want to run the offline evaluation in your local environment, install the required python packages
 
 ```
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 A template filesystem with the following structure is provided in the repo. By unzipping the resource file, the embeddings and ground truth will be placed in the appropriate folders.
 
 ```
-unzip -o cleaning_challenge_data.zip
+$ unzip -o cleaning_challenge_data.zip
 ```
 
 The resulting filesystem in the repo should look as follows
@@ -68,13 +68,13 @@ With the resources in place, you can now test that the system is functioning as 
 
 To test the containerized offline evaluation, run
 
-```
-docker-compose up
+```sh
+docker-compose run dataperf-cleaning-submission
 ```
 
 Similarly, to test the local python offline evaluation, run
 
-```
+```sh
 python3 create_baselines.py && python3 main.py && python3 plotter.py
 ```
 
