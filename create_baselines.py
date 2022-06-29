@@ -12,7 +12,9 @@ from timeit import default_timer as timer
 import sys
 
 if __name__ == "__main__":
-    is_docker = True if sys.argv[1] == "docker" else False
+    is_docker = False 
+    if len(sys.argv)>1 and sys.argv[1] == "docker":
+        is_docker=True
     if is_docker:
         with open("task_setup_docker.yml", "r") as f:
             setup = yaml.load(f, Loader=Loader)

@@ -9,11 +9,13 @@ import pandas as pd
 import yaml
 from yaml import Loader
 import sys
+from utils import calc_auc_from_submission
+
 def run_correction_eval(
-    setup_yaml_path: str = None,
-    docker_flag : bool = False,
 ):
-    is_docker = True if sys.argv[1] == "docker" else False
+    is_docker = False 
+    if len(sys.argv)>1 and sys.argv[1] == "docker":
+        is_docker=True
     if is_docker:
         with open("task_setup_docker.yml", "r") as f:
             setup = yaml.load(f, Loader=Loader)
@@ -77,9 +79,13 @@ def run_correction_eval(
                 )
                 progress_bar.update(1)
                 progress_bar.set_postfix(acc=after_acc, method=method)
+        """
+        Here we calculate the auc score with the submitted_evaluations
+        """
         result = {
             "before_acc": before_acc,
             "submitted_evaluations": submitted_evaluations,
+            "auc": calc_auc_from_submission(submitted_evaluations)
         }
         with open(os.path.join(results_path, f"{data_id}_evaluation.json"), "w") as f:
             json.dump(result, f)
