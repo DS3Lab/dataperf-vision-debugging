@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn import pipeline
 from datascope.importance.common import SklearnModelAccuracy
-from datascope.importance.shapley import ShapleyImportance
+from datascope.importance.shapley import ShapleyImportance, ImportanceMethod
 from appraiser import Appraiser
 from classifier import XGBClassifier as Classifier
 
@@ -18,7 +18,14 @@ class ShapleyAppraiser(Appraiser):
         super().__init__()
         
     def fit(self, train_X, train_y, val_X, val_y):
-        importance = ShapleyImportance(method=self.importance_method, utility=utility)
+        if self.importance_method == ImportanceMethod.MONTECARLO:
+            importance = ShapleyImportance(
+                    method=self.importance_method,
+                    utility=utility,
+                    mc_iterations=100,
+                )
+        else:
+            importance = ShapleyImportance(method=self.importance_method, utility=utility)
         train_y = np.squeeze(train_y)
         val_y = np.squeeze(val_y)
         importances = importance.fit(train_X, train_y).score(val_X, val_y)

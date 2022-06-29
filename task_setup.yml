@@ -5,29 +5,29 @@ paths:
   results_folder: results/
 
 tasks:
-  # - data_id: 01g317-flipped
-  #   train_size: 300
-  #   noise_level: 0.3
-  #   test_size: 500
-  #   val_size: 100
+  - data_id: 01g317-flipped
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
   
-  # - data_id: 04hgtk-flipped
-  #   train_size: 300
-  #   noise_level: 0.3
-  #   test_size: 500
-  #   val_size: 100
+  - data_id: 04hgtk-flipped
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
 
-  # - data_id: 04rky-flipped
-  #   train_size: 300
-  #   noise_level: 0.3
-  #   test_size: 500
-  #   val_size: 100
+  - data_id: 04rky-flipped
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
   
-  # - data_id: 09j2d-flipped
-  #   train_size: 300
-  #   noise_level: 0.3
-  #   test_size: 500
-  #   val_size: 100
+  - data_id: 09j2d-flipped
+    train_size: 300
+    noise_level: 0.3
+    test_size: 500
+    val_size: 100
 
   - data_id: 01g317
     train_size: 300
@@ -56,6 +56,6 @@ tasks:
 baselines:
    # - name: neighbor_shapley
    # - name: random
-   - name: influence_function
-   # - name: mc_shapley
+   # - name: influence_function
+   - name: mc_shapley
 
