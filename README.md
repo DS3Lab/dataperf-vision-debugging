@@ -69,13 +69,13 @@ With the resources in place, you can now test that the system is functioning as 
 To test the containerized offline evaluation, run
 
 ```sh
-docker-compose run dataperf-cleaning-submission
+$ docker-compose run dataperf-cleaning-submission
 ```
 
 Similarly, to test the local python offline evaluation, run
 
 ```sh
-python3 create_baselines.py && python3 main.py && python3 plotter.py
+$ python3 create_baselines.py && python3 main.py && python3 plotter.py
 ```
 
 Either test will run the offline evaluation using the setup specified in `task_setup.yaml` (or `task_setup_docker.yaml`), which will utilise a training set (with some noise) and a validation set to generate baseline cleaning strategies, train classification models and generate a plot in `results/` with the data id.
