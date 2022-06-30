@@ -16,7 +16,7 @@ def fix(proposed_fixes, train, budget, gt_df):
     d = pa.Table.from_pydict(train)
     return d, len(proposed_fixes)
 
-def calc_auc_from_submission(submissions, ratio_cleaned=0.9):
+def calc_auc_from_submission(submissions, ratio_cleaned=0.95):
     methods = set([x['submission'] for x in submissions])
     scores = {
         k: {
@@ -37,6 +37,5 @@ def calc_auc_from_submission(submissions, ratio_cleaned=0.9):
         target_y = ratio_cleaned * y[len(x)-1]
         fraction_fixes = next((x for x in y if x > target_y), -1)
         # the name should be changed later...
-        scores[method]['fraction_fixes'] = fraction_fixes/len(x)
-    
+        scores[method]['fraction_fixes'] = fraction_fixes
     return scores
