@@ -20,8 +20,8 @@ def calc_auc_from_submission(submissions, ratio_cleaned=0.95):
     methods = set([x['submission'] for x in submissions])
     scores = {
         k: {
-            'auc': 0,
-            'fraction_fixes': 0
+            'auc': -1,
+            'fraction_fixes': -1
         } for k in methods
     }
     for method in methods:
@@ -35,7 +35,8 @@ def calc_auc_from_submission(submissions, ratio_cleaned=0.95):
         Here calculate the number of fixes that could achieve ratio_cleaned * accuracy (achieved on cleaned dataset)
         """
         target_y = ratio_cleaned * y[len(x)-1]
-        fraction_fixes = next((x for x in y if x > target_y), -1)
-        # the name should be changed later...
-        scores[method]['fraction_fixes'] = fraction_fixes
+        for i in range(len(x)):
+            if y[i] >=target_y:
+                scores[method]['fraction_fixes'] = i/len(x)
+                break
     return scores
