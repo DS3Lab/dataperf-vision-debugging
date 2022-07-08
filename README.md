@@ -101,7 +101,7 @@ Each submission must be a ```.txt``` file. Each row in the file represents the i
 The included training set file serves as a template of a single submission:
 
 ```
-$ head examples/submission.txt
+$ head examples/01g317_my_method.txt
 
 1
 2
@@ -109,6 +109,15 @@ $ head examples/submission.txt
 4
 ...
 ```
+
+Besides of the data points to be inspected and corrected, the submission file also contains a text file that states how long your submission takes to get the submission file. This text file is used to compare your submission with the other submissions from the aspect of speed. The text file should be named as ```time_{data_id}_{your_method_name}.txt```, for example ```time_01g317_random.txt```. It should contain a single line with the time (in seconds) it takes to run the submission. For example,
+
+```
+$ head examples/time_01g317_my_method.txt
+
+4.6976000021459186e-05
+```
+
 
 ## Open Division: Offline evaluation of a submission
 

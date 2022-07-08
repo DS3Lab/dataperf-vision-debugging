@@ -49,7 +49,7 @@ def plot(evaluation_file, result_folder):
     handles, labels = ax.get_legend_handles_labels()
     for idx, label in enumerate(labels):
         if label in known_method:
-            score = results['score'][label]
+            score = results['auc_score'][label]
             labels[idx] = f"{label} (score={score['fraction_fixes']:.4f})"
     # plt.legend(handles = handles, labels = labels)
     

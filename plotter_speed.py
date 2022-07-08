@@ -23,7 +23,7 @@ def aggregate_data(evaluation_file, result_folder):
 
     with open(os.path.join(evaluation_folder, evaluation_file), "r") as f:
         results = json.load(f)
-    data = results["score"]
+    data = results["auc_score"]
     data = pd.DataFrame.from_dict(data, orient='index')
     data['method'] = data.index
     data['data_id'] = data_id
@@ -53,7 +53,7 @@ def plot(data, result_folder, score_metric='auc'):
     Add score to the legend
     """
     handles, labels = ax.get_legend_handles_labels()
-    handles, labels = handles[1:4], labels[1:4]
+    handles, labels = handles[1:3], labels[1:3]
     for h in handles:
         h.set_sizes([200])
     for idx, label in enumerate(labels):
