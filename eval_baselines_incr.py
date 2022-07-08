@@ -9,16 +9,18 @@ from tqdm import tqdm
 import pandas as pd
 import yaml
 from yaml import Loader
+from utils import calc_auc_from_submission
 
 def run_correction_eval(
     setup_yaml_path: str = None,
     docker_flag: bool = False,
 ):
-    submission_path = "submissions"
-
     with open("task_setup.yml", "r") as f:
         setup = yaml.load(f, Loader=Loader)
+    submission_path = setup['paths']['submission_folder']
+    results_path = setup['paths']['results_folder']
     baselines = [x['name'] for x in setup["baselines"]]
+    
     for task in setup["tasks"]:
         data_id = task["data_id"]
         noise_level = task["noise_level"]
@@ -41,15 +43,19 @@ def run_correction_eval(
         print(f"On task [{data_id}]: Accuracy before cleaning: {before_acc}")
 
         # find submissions
-        submissions = [x for x in os.listdir(submission_path) if x.endswith(".txt") and x.split("_")[0] == data_id]
+        submissions = [x for x in os.listdir(submission_path) if x.endswith(".txt") and x.split("_")[0] == data_id and not x.startswith("time")]
+
         with open(os.path.join("results", f"{data_id}_evaluation.json"), "r") as f:
             submitted_evaluations = json.load(f)['submitted_evaluations']
+        
         for submission in submissions:
             submission_file = os.path.join(submission_path, submission)
             method = submission.replace(".txt", "").replace(f"{data_id}_", "")
+            
             if method in baselines:
                 with open(submission_file, "r") as f:
                     lines = f.readlines()
+                
                 proposed_fixes = [int(x.rstrip()) for x in lines]
                 progress_bar = tqdm(range(1, train_size+1))
                 for i in range(1, train_size+1):
@@ -73,8 +79,9 @@ def run_correction_eval(
         result = {
             "before_acc": before_acc,
             "submitted_evaluations": submitted_evaluations,
+            "auc_score": calc_auc_from_submission(submitted_evaluations)
         }
-        with open(os.path.join("results", f"{data_id}_evaluation.json"), "w") as f:
+        with open(os.path.join(results_path, f"{data_id}_evaluation.json"), "w") as f:
             json.dump(result, f)
 
 if __name__=="__main__":

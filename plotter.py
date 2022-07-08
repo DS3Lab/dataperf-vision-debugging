@@ -36,20 +36,21 @@ def plot(evaluation_file, result_folder):
         hue="method",
         data=data
     )
+    
     ax.set_title(f"Cleaning on {data_id}")
     plt.axhline(before_acc, linestyle='--', label='Before Correction', lw=2, color='black')
-
 
     """
     Add score to the legend
     """
+    
     known_method = set(data['method'])
 
     handles, labels = ax.get_legend_handles_labels()
     for idx, label in enumerate(labels):
         if label in known_method:
-            score = results['auc_score'][label]
-            labels[idx] = f"{label} (score={score:.4f})"
+            score = results['score'][label]
+            labels[idx] = f"{label} (score={score['fraction_fixes']:.4f})"
     # plt.legend(handles = handles, labels = labels)
     
     leg = ax.legend(handles=handles, labels=labels)
@@ -71,11 +72,13 @@ if __name__=="__main__":
     is_docker = False 
     if len(sys.argv)>1 and sys.argv[1] == "docker":
         is_docker=True
+    
     if is_docker:
         with open("task_setup_docker.yml", "r") as f:
             setup = yaml.load(f, Loader=Loader)
     else:
         with open("task_setup.yml", "r") as f:
             setup = yaml.load(f, Loader=Loader)
+    
     results_path = setup['paths']['results_folder']
     run_plotting(results_path)

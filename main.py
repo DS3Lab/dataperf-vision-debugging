@@ -11,11 +11,12 @@ from yaml import Loader
 import sys
 from utils import calc_auc_from_submission
 
+
 def run_correction_eval(
 ):
-    is_docker = False 
-    if len(sys.argv)>1 and sys.argv[1] == "docker":
-        is_docker=True
+    is_docker = False
+    if len(sys.argv) > 1 and sys.argv[1] == "docker":
+        is_docker = True
     if is_docker:
         with open("task_setup_docker.yml", "r") as f:
             setup = yaml.load(f, Loader=Loader)
@@ -35,14 +36,18 @@ def run_correction_eval(
         gt_df = pd.read_csv(groud_truth)
 
         # Loading training and testing sets
-        train_filepath = os.path.join(setup['paths']['embedding_folder'], f"{task['data_id']}_train_{task['noise_level']}_{task['train_size']}.parquet")
-        test_filepath = os.path.join(setup['paths']['embedding_folder'], f"{task['data_id']}_test_{task['test_size']}.parquet")
-        
+        train_filepath = os.path.join(
+            setup['paths']['embedding_folder'], f"{task['data_id']}_train_{task['noise_level']}_{task['train_size']}.parquet")
+        test_filepath = os.path.join(
+            setup['paths']['embedding_folder'], f"{task['data_id']}_test_{task['test_size']}.parquet")
+
         train_file = pq.read_table(train_filepath)
         test_file = pq.read_table(test_filepath)
 
-        test_X, test_y = np.vstack(test_file.column("encoding").to_numpy()), np.vstack(test_file.column("label").to_numpy())
-        train_X, train_y = np.vstack(train_file.column("encoding").to_numpy()), np.vstack(train_file.column("label").to_numpy())
+        test_X, test_y = np.vstack(test_file.column("encoding").to_numpy()), np.vstack(
+            test_file.column("label").to_numpy())
+        train_X, train_y = np.vstack(train_file.column(
+            "encoding").to_numpy()), np.vstack(train_file.column("label").to_numpy())
 
         # Fit the classifier on the training set (before cleaning)
         before_clf = Classifier()
@@ -51,8 +56,9 @@ def run_correction_eval(
         print(f"On task [{data_id}]: Accuracy before cleaning: {before_acc}")
 
         # find submissions
-        submissions = [x for x in os.listdir(submission_path) if x.endswith(".txt") and x.split("_")[0] == data_id]
-        
+        submissions = [x for x in os.listdir(submission_path) if x.endswith(
+            ".txt") and x.split("_")[0] == data_id and not x.startswith("time")]
+
         submitted_evaluations = []
         for submission in submissions:
             submission_file = os.path.join(submission_path, submission)
@@ -64,8 +70,10 @@ def run_correction_eval(
             for i in range(1, train_size+1):
                 progress_bar.set_description(f"Budget {i}")
                 # perform the fix, reload the train_X, train_y
-                new_train_set, len_fixes = fix(proposed_fixes[:i], train_file, i, gt_df)
-                new_train_X, new_train_y = np.vstack(new_train_set.column("encoding").to_numpy()), np.vstack(new_train_set.column("label").to_numpy())
+                new_train_set, len_fixes = fix(
+                    proposed_fixes[:i], train_file, i, gt_df)
+                new_train_X, new_train_y = np.vstack(new_train_set.column(
+                    "encoding").to_numpy()), np.vstack(new_train_set.column("label").to_numpy())
 
                 # re-initialise and re-fit the classifier
                 new_clf = Classifier()
@@ -73,9 +81,9 @@ def run_correction_eval(
                 after_acc = new_clf.evaluate(test_X, test_y)
                 submitted_evaluations.append({
                     "submission": submission.replace(".txt", "").replace(f"{data_id}_", ""),
-                    "accuracy":after_acc,
+                    "accuracy": after_acc,
                     "fixes": len_fixes,
-                    }
+                }
                 )
                 progress_bar.update(1)
                 progress_bar.set_postfix(acc=after_acc, method=method)
@@ -90,5 +98,6 @@ def run_correction_eval(
         with open(os.path.join(results_path, f"{data_id}_evaluation.json"), "w") as f:
             json.dump(result, f)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     run_correction_eval()
