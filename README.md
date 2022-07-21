@@ -143,7 +143,7 @@ After running the evaluation, the results and figures are stored in `results/`. 
 
 An example figure for a single task is shown below. The x-axis represents the number of data points each algorithm inspects, and the y-axis represents the test accuracy. The black dashed horizontal line represents the initial accuracy without any cleaning. Intuitive, the higher the curve, the better the performance - meaning that the debugging algorithm leads to better performance with the same number of inspections.
 
-![Evaluation of Task](assets/01g317-flipped_evaluation.png)
+<img src='assets/01g317-flipped_evaluation.png' width='256px'>
 
 **Aggregated Figure**
 
@@ -151,4 +151,4 @@ An example aggregated figure is shown below. This figure is used to compare diff
 
 Intuitively, if the algorithm is more on left, the algorithm is more efficient - meaning that it can achieve the target accuracy with less number of inspections. In the meanwhile, if the algorithm is lower, then the algorithm takes less time to perform the valuation.
 
-![Aggregated Evaluation](assets/fraction_fixes_speed.png)
+<img src='assets/fraction_fixes_speed.png' width='256px'>
