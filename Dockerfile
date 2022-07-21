@@ -9,4 +9,4 @@ COPY . /app/
 
 WORKDIR /app/
 
-ENTRYPOINT python3 create_baselines.py docker && python3 main.py docker && python3 plotter.py docker
+ENTRYPOINT python3 create_baselines.py docker && python3 main.py docker && python3 plotter.py docker && python3 plotter_speed.py docker

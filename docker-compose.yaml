@@ -1,6 +1,6 @@
 services:
-  dataperf-cleaning-submission:
-    container_name: dataperf-cleaning-submission
+  dataperf-debugging-submission:
+    container_name: dataperf-debugging-submission
     build: .
     volumes:
       - ./data:/app/data
