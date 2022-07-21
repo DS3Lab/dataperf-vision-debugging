@@ -53,7 +53,9 @@ def plot(data, result_folder, score_metric='auc'):
     Add score to the legend
     """
     handles, labels = ax.get_legend_handles_labels()
-    handles, labels = handles[1:3], labels[1:3]
+    # find methods
+    methods = set(data['method'].tolist())
+    handles, labels = handles[1:1+len(methods)], labels[1:1+len(methods)]
     for h in handles:
         h.set_sizes([200])
     for idx, label in enumerate(labels):
@@ -67,7 +69,6 @@ def plot(data, result_folder, score_metric='auc'):
     plt.legend(markerscale=1.3)
     leg = ax.legend(handles=handles, labels=labels)
     figure_path = os.path.join(result_folder, f"{score_metric}_speed.png")
-    
     plt.savefig(figure_path, bbox_inches='tight', pad_inches=0)
     plt.close()
 
