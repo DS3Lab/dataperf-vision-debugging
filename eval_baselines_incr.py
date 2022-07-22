@@ -1,6 +1,5 @@
 import json
 import os
-import fire
 from utils import fix
 from pyarrow import parquet as pq
 from classifier import XGBClassifier as Classifier

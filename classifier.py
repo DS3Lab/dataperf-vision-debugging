@@ -7,7 +7,10 @@ from torch.utils.data import TensorDataset, DataLoader
 
 class XGBClassifier():
     def __init__(self):
-        self.xgb = xgboost.XGBClassifier()
+        self.xgb = xgboost.XGBClassifier(
+            eval_metric='logloss',
+            use_label_encoder=False,
+        )
 
     def fit(self, features, labels):
         self.xgb.fit(features, labels)
@@ -72,8 +75,8 @@ class LinearClassifier():
         return round(accuracy, 2)
 
 if __name__=="__main__":
-    train = pq.read_table("embeddings/09j2d_train_0.3_200.parquet")
-    test = pq.read_table("embeddings/09j2d_test.parquet")
+    train = pq.read_table("embeddings/09j2d_train_0.3_300.parquet")
+    test = pq.read_table("embeddings/09j2d_test_500.parquet")
     train_X, train_y = np.vstack(train.column("encoding").to_numpy()), np.vstack(train.column("label").to_numpy())
     test_X, test_y = np.vstack(test.column("encoding").to_numpy()), np.vstack(test.column("label").to_numpy())
     clf = XGBClassifier()

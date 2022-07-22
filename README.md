@@ -1,8 +1,8 @@
-# `dataperf-vision-cleaning`: A Data-Centric Vision Benchmark for Training Data Cleaning
+# `dataperf-vision-debugging`: A Data-Centric Vision Benchmark for Training Data Debugging
 
 ### **Current version:** alpha 
 
-This github repo serves as the starting point for offline evaluation of submissions for the training data cleaning vision benchmark. The offline evaluation can be run on both your local environment as well as a containerized image for reproducibility of score results.
+This github repo serves as the starting point for offline evaluation of submissions for the training data debugging vision benchmark. The offline evaluation can be run on both your local environment as well as a containerized image for reproducibility of score results.
 
 For a detailed summary of the a benchmark, refer to the provided [benchmark documentation](https://docs.google.com/document/d/1J8poMyW63rAmb1Rq4Ni6iAgryCcijqIGtM7cGb3cyB8/edit).
 
@@ -41,7 +41,7 @@ The current version of this repo has only been tested locally on Python 3.8 and 
 Clone this repo to your local machine
 
 ```
-$ git clone git@github.com:DS3Lab/dataperf-vision-cleaning.git
+$ git clone git@github.com:DS3Lab/dataperf-vision-debugging.git
 ```
 
 If you want to run the offline evaluation in your local environment, install the required python packages
@@ -69,7 +69,7 @@ With the resources in place, you can now test that the system is functioning as 
 To test the containerized offline evaluation, run
 
 ```sh
-$ docker-compose run dataperf-cleaning-submission
+$ docker-compose run dataperf-debugging-submission
 ```
 
 Similarly, to test the local python offline evaluation, run
@@ -78,7 +78,7 @@ Similarly, to test the local python offline evaluation, run
 $ python3 create_baselines.py && python3 main.py && python3 plotter.py
 ```
 
-Either test will run the offline evaluation using the setup specified in `task_setup.yaml` (or `task_setup_docker.yaml`), which will utilise a training set (with some noise) and a validation set to generate baseline cleaning strategies, train classification models and generate a plot in `results/` with the data id.
+Either test will run the offline evaluation using the setup specified in `task_setup.yaml` (or `task_setup_docker.yaml`), which will utilise a training set (with some noise) and a validation set to generate baseline debugging strategies, train classification models and generate a plot in `results/` with the data id.
 
 ```
 |____results
@@ -141,13 +141,13 @@ After running the evaluation, the results and figures are stored in `results/`. 
 
 **Figure for Each Task** 
 
-An example figure for a single task is shown below. The x-axis represents the number of data points each algorithm inspects, and the y-axis represents the test accuracy. The black dashed horizontal line represents the initial accuracy without any cleaning. Intuitive, the higher the curve, the better the performance - meaning that the debugging algorithm leads to better performance with the same number of inspections.
+An example figure for a single task is shown below. The x-axis represents the number of data points each algorithm inspects, and the y-axis represents the test accuracy. The black dashed horizontal line represents the initial accuracy without any debugging. Intuitive, the higher the curve, the better the performance - meaning that the debugging algorithm leads to better performance with the same number of inspections.
 
 <img src='assets/01g317-flipped_evaluation.png' width='256px'>
 
 **Aggregated Figure**
 
-An example aggregated figure is shown below. This figure is used to compare different algorithms quantitatively. The x-axis represents the portion of data points each algorithm needs to inspect, in order to achieve a high enough accuracy (95% of the accuracy on the cleaned training dataset). The y-axis represents the time each algorithm needs in order to find the order of cleaning. Differernt shapes of marker indicates different tasks. 
+An example aggregated figure is shown below. This figure is used to compare different algorithms quantitatively. The x-axis represents the portion of data points each algorithm needs to inspect, in order to achieve a high enough accuracy (95% of the accuracy on the cleaned training dataset). The y-axis represents the time each algorithm needs in order to find the order of debugging. Differernt shapes of marker indicates different tasks. 
 
 Intuitively, if the algorithm is more on left, the algorithm is more efficient - meaning that it can achieve the target accuracy with less number of inspections. In the meanwhile, if the algorithm is lower, then the algorithm takes less time to perform the valuation.
 

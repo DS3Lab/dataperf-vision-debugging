@@ -20,7 +20,7 @@ class ShapleyAppraiser(Appraiser):
         elif self.importance_method == ImportanceMethod.BRUTEFORCE:
             self.name='bruteforce_shapley'
         elif self.importance_method == ImportanceMethod.NEIGHBOR:
-            self.name='neighbor_shapley'
+            self.name='neighbor_shapley (datascope)'
         else:
             raise ValueError(f"Unknown algorithm {self.importance_method}")
         super().__init__()
