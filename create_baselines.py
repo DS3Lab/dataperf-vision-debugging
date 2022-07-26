@@ -21,31 +21,31 @@ if __name__ == "__main__":
     else:
         with open("task_setup.yml", "r") as f:
             setup = yaml.load(f, Loader=Loader)
+
     baselines = []
-
-    for task in setup['tasks']:
-
         # we re-initialise the appraisers for each task
 
-        for appraiser in setup['baselines']:
-            if appraiser['name'] == 'mc_shapley':
-                importance_appraiser = ShapleyAppraiser(
-                    importance_method=ImportanceMethod.MONTECARLO)
-            elif appraiser['name'] == 'bruteforce_shapley':
-                importance_appraiser = ShapleyAppraiser(
-                    importance_method=ImportanceMethod.BRUTEFORCE)
-            elif appraiser['name'] == 'neighbor_shapley (datascope)':
-                importance_appraiser = ShapleyAppraiser(
-                    importance_method=ImportanceMethod.NEIGHBOR)
-            elif appraiser['name'] == 'random':
-                importance_appraiser = RandomAppraiser()
-            elif appraiser['name'] == 'influence_function':
-                importance_appraiser = InfluenceFunctionAppraiser()
-            else:
-                raise ValueError(f"Unknown algorithm {appraiser['name']}")
+    for appraiser in setup['baselines']:
+        if appraiser['name'] == 'mc_shapley':
+            importance_appraiser = ShapleyAppraiser(
+                importance_method=ImportanceMethod.MONTECARLO)
+        elif appraiser['name'] == 'bruteforce_shapley':
+            importance_appraiser = ShapleyAppraiser(
+                importance_method=ImportanceMethod.BRUTEFORCE)
+        elif appraiser['name'] == 'neighbor_shapley (datascope)':
+            importance_appraiser = ShapleyAppraiser(
+                importance_method=ImportanceMethod.NEIGHBOR)
+        elif appraiser['name'] == 'random':
+            importance_appraiser = RandomAppraiser()
+        elif appraiser['name'] == 'influence_function':
+            importance_appraiser = InfluenceFunctionAppraiser()
+        else:
+            raise ValueError(f"Unknown algorithm {appraiser['name']}")
 
-            baselines.append(importance_appraiser)
+        baselines.append(importance_appraiser)
 
+    for task in setup['tasks']:
+    
         train_filepath = os.path.join(
             setup['paths']['embedding_folder'], f"{task['data_id']}_train_{task['noise_level']}_{task['train_size']}.parquet")
         test_filepath = os.path.join(
