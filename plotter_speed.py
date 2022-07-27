@@ -81,6 +81,7 @@ def run_plotting(evaluation_folder="results/"):
         df = aggregate_data(result, result_folder=evaluation_folder)
         frames.append(df)
     data = pd.concat(frames)
+    data.sort_values(by='method', inplace=True)
     plot(data, result_folder=evaluation_folder, score_metric='auc')
     plot(data, result_folder=evaluation_folder, score_metric='fraction_fixes')
 
