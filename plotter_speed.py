@@ -60,9 +60,9 @@ def plot(data, result_folder, score_metric='auc'):
         h.set_sizes([200])
     for idx, label in enumerate(labels):
         if label=='mc_shapley':
-            labels[idx] = 'TMC Shapley x50'
-        elif label == 'neighbor_shapley':
-            labels[idx] = 'Neighbor Shapley'
+            labels[idx] = 'TMC Shapley x100'
+        elif label == 'neighbor_shapley (datascope)':
+            labels[idx] = 'DataScope Shapley'
         elif label == 'random':
             labels[idx] = 'Random'
     

@@ -47,6 +47,17 @@ def plot(evaluation_file, result_folder):
     known_method = set(data['method'])
 
     handles, labels = ax.get_legend_handles_labels()
+    # find methods
+    methods = set(data['method'].tolist())
+    
+    for idx, label in enumerate(labels):
+        if label=='mc_shapley':
+            labels[idx] = 'TMC Shapley x100'
+        elif label == 'neighbor_shapley (datascope)':
+            labels[idx] = 'DataScope Shapley'
+        elif label == 'random':
+            labels[idx] = 'Random'
+    
     for idx, label in enumerate(labels):
         if label in known_method:
             score = results['auc_score'][label]
