@@ -2,7 +2,7 @@ import json
 import os
 from utils import fix
 from pyarrow import parquet as pq
-from classifier import XGBClassifier as Classifier
+from classifier import LogisticClassifier as Classifier
 import numpy as np
 from tqdm import tqdm
 import pandas as pd
@@ -12,8 +12,7 @@ import sys
 from utils import calc_auc_from_submission
 
 
-def run_correction_eval(
-):
+def run_correction_eval():
     is_docker = False
     if len(sys.argv) > 1 and sys.argv[1] == "docker":
         is_docker = True
@@ -74,7 +73,9 @@ def run_correction_eval(
                     proposed_fixes[:i], train_file, i, gt_df)
                 new_train_X, new_train_y = np.vstack(new_train_set.column(
                     "encoding").to_numpy()), np.vstack(new_train_set.column("label").to_numpy())
-
+                new_train_X = new_train_X.astype(np.float32)
+                new_train_y = new_train_y.astype(np.float32)
+                
                 # re-initialise and re-fit the classifier
                 new_clf = Classifier()
                 new_clf.fit(new_train_X, new_train_y)

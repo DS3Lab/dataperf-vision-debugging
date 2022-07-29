@@ -58,6 +58,7 @@ def plot(data, result_folder, score_metric='auc'):
     handles, labels = handles[1:1+len(methods)], labels[1:1+len(methods)]
     for h in handles:
         h.set_sizes([200])
+    
     for idx, label in enumerate(labels):
         if label=='mc_shapley':
             labels[idx] = 'TMC Shapley x100'
@@ -65,7 +66,9 @@ def plot(data, result_folder, score_metric='auc'):
             labels[idx] = 'DataScope Shapley'
         elif label == 'random':
             labels[idx] = 'Random'
-    
+        elif label == 'influence_function':
+            labels[idx] = 'Influence Function'
+    print(labels)
     plt.legend(markerscale=1.3)
     leg = ax.legend(handles=handles, labels=labels)
     figure_path = os.path.join(result_folder, f"{score_metric}_speed.png")

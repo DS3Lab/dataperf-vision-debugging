@@ -29,8 +29,6 @@ def calc_auc_from_submission(submissions, ratio_cleaned=0.95):
         logger.info(f"Scoring for submission {method}...")
         x = np.array([x['fixes'] for x in submission])
         y = np.array([x['accuracy'] for x in submission])
-        auc_score = metrics.auc(x, y)
-        scores[method]['auc'] = auc_score/len(x)
         """
         Here calculate the number of fixes that could achieve ratio_cleaned * accuracy (achieved on cleaned dataset)
         """

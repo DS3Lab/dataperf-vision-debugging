@@ -40,10 +40,6 @@ def plot(evaluation_file, result_folder):
     ax.set_title(f"Cleaning on {data_id}")
     plt.axhline(before_acc, linestyle='--', label='Before Correction', lw=2, color='black')
 
-    """
-    Add score to the legend
-    """
-    
     known_method = set(data['method'])
 
     handles, labels = ax.get_legend_handles_labels()
@@ -51,18 +47,17 @@ def plot(evaluation_file, result_folder):
     methods = set(data['method'].tolist())
     
     for idx, label in enumerate(labels):
-        if label=='mc_shapley':
-            labels[idx] = 'TMC Shapley x100'
-        elif label == 'neighbor_shapley (datascope)':
-            labels[idx] = 'DataScope Shapley'
-        elif label == 'random':
-            labels[idx] = 'Random'
-    
-    for idx, label in enumerate(labels):
         if label in known_method:
             score = results['auc_score'][label]
-            labels[idx] = f"{label} (score={score['fraction_fixes']:.4f})"
-    # plt.legend(handles = handles, labels = labels)
+            score = score['fraction_fixes']
+            if label=='mc_shapley':
+                labels[idx] = f"TMC Shapley x100 (score={score:.4f})"
+            elif label == 'neighbor_shapley (datascope)':
+                labels[idx] = f"DataScope Shapley (score={score:.4f})"
+            elif label == 'random':
+                labels[idx] = f"Random (score={score:.4f})"
+            elif label =='influence_function':
+                labels[idx] = f"Influence Function (score={score:.4f})"
     
     leg = ax.legend(handles=handles, labels=labels)
     for line in leg.get_lines():

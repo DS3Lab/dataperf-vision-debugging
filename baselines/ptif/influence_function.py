@@ -3,7 +3,7 @@
 import torch
 from torch.autograd import grad
 from baselines.ptif.utils import display_progress
-
+from tqdm import tqdm
 
 def s_test(z_test, t_test, model, z_loader, gpu=-1, damp=0.01, scale=25.0,
            recursion_depth=5000):

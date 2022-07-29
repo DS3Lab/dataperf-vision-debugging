@@ -1,6 +1,6 @@
 import torch
 from appraiser import Appraiser
-from classifier import LinearClassifier as Classifier
+from classifier import LogisticClassifier as Classifier
 from baselines.ptif.calc_influence_function import calc_img_wise
 from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
@@ -29,8 +29,8 @@ class InfluenceFunctionAppraiser(Appraiser):
             'num_classes': 2,
             'test_sample_num': 40,
             'test_start_index': 0,
-            'recursion_depth': 1,
-            'r_averaging': 30,
+            'recursion_depth': 200,
+            'r_averaging': 50,
             'scale': None,
             'damp': None,
             'calc_method': 'img_wise',

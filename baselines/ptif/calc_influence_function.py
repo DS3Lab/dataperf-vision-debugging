@@ -6,7 +6,7 @@ import datetime
 import numpy as np
 import copy
 import logging
-
+from tqdm import tqdm
 from pathlib import Path
 from baselines.ptif.influence_function import s_test, grad_z
 from baselines.ptif.utils import save_json, display_progress
@@ -253,7 +253,7 @@ def calc_influence_function(train_dataset_size, grad_z_vecs=None,
         train_dataset_size = len(grad_z_vecs)
 
     influences = []
-    for i in range(train_dataset_size):
+    for i in tqdm(range(train_dataset_size)):
         tmp_influence = -sum(
             [
                 ###################################
@@ -318,7 +318,7 @@ def calc_influence_single(model, train_loader, test_loader, test_id_num, gpu,
     # Calculate the influence function
     train_dataset_size = len(train_loader.dataset)
     influences = []
-    for i in range(train_dataset_size):
+    for i in tqdm(range(train_dataset_size)):
         z, t = train_loader.dataset[i]
         z = train_loader.collate_fn([z])
         t = train_loader.collate_fn([t])
@@ -458,7 +458,7 @@ def calc_img_wise(config, model, train_loader, test_loader):
     influences = {}
     # Main loop for calculating the influence function one test sample per
     # iteration.
-    for j in range(test_dataset_iter_len):
+    for j in tqdm(range(test_dataset_iter_len)):
         # If we calculate evenly per class, choose the test img indicies
         # from the sample_list instead
         if test_sample_num and test_start_index:
