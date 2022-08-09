@@ -7,7 +7,6 @@ import sys
 import yaml
 from yaml import Loader
 
-
 def get_cost_time(row):
     row = row.to_dict()
     method = row['method']
@@ -15,7 +14,6 @@ def get_cost_time(row):
     with open(os.path.join(submission_path, f"time_{data_id}_{method}.txt"), 'r') as fp:
         time = fp.read()
     return float(time)
-
 
 def aggregate_data(evaluation_file, result_folder):
     data_id = evaluation_file.split("_")[0]
@@ -31,6 +29,8 @@ def aggregate_data(evaluation_file, result_folder):
     return data
 
 def plot(data, result_folder, score_metric='auc'):
+    data = data[data['method']!='my_debug']
+    
     sns.set(
         font="DejaVu Sans",
         context="paper",
@@ -40,26 +40,29 @@ def plot(data, result_folder, score_metric='auc'):
     )
     sns.color_palette("colorblind", as_cmap=True)
     ax = sns.scatterplot(
-        x=score_metric,
-        y="time",
-        hue="method",
-        style="data_id",
+        x='time',
+        y=score_metric,
+        hue="data_id",
+        style="method",
         s=200,
         data=data,
     )
     ax.set_title(f"Valuation time vs. {score_metric}")
-    ax.set_yscale("log")
+    ax.set_xscale("log")
+    ax.set_xlabel("Valuation time (s)")
+    ax.set_ylabel("Fraction of Fixes")
     """
     Add score to the legend
     """
     handles, labels = ax.get_legend_handles_labels()
     # find methods
     methods = set(data['method'].tolist())
-    data_ids = set(data['data_id'].tolist())
-    handles, labels = handles[1:1+len(methods)], labels[1:1+len(methods)]
+    
+    handles, labels = handles[-len(methods):], labels[-len(methods):]
+
     for h in handles:
         h.set_sizes([200])
-    
+        h.set_color(sns.color_palette("colorblind")[0])
     for idx, label in enumerate(labels):
         if label=='mc_shapley':
             labels[idx] = 'TMC Shapley x100'
@@ -69,10 +72,18 @@ def plot(data, result_folder, score_metric='auc'):
             labels[idx] = 'Random'
         elif label == 'influence_function':
             labels[idx] = 'Influence Function'
-    print(labels)
+    
     plt.legend(markerscale=1.3)
+
     leg = ax.legend(handles=handles, labels=labels)
-    figure_path = os.path.join(result_folder, f"{score_metric}_speed.png")
+    data_ids = set(data['data_id'].tolist())
+    for data_id in data_ids:
+        sub_dataframe = data[data['data_id']==data_id]
+        print(sub_dataframe)
+        X = sub_dataframe['time'].tolist()
+        Y = sub_dataframe[score_metric].tolist()
+        plt.plot(X, Y, alpha=0.2)
+    figure_path = os.path.join(result_folder, f"{score_metric}_speed_2.png")
     plt.savefig(figure_path, bbox_inches='tight', pad_inches=0)
     plt.close()
 
@@ -86,9 +97,8 @@ def run_plotting(evaluation_folder="results/"):
         frames.append(df)
     data = pd.concat(frames)
     data.sort_values(by='method', inplace=True)
-    plot(data, result_folder=evaluation_folder, score_metric='auc')
+    # plot(data, result_folder=evaluation_folder, score_metric='auc')
     plot(data, result_folder=evaluation_folder, score_metric='fraction_fixes')
-
 
 if __name__ == "__main__":
     is_docker = False

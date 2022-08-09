@@ -147,8 +147,8 @@ An example figure for a single task is shown below. The x-axis represents the nu
 
 **Aggregated Figure**
 
-An example aggregated figure is shown below. This figure is used to compare different algorithms quantitatively. The x-axis represents the portion of data points each algorithm needs to inspect, in order to achieve a high enough accuracy (95% of the accuracy on the cleaned training dataset). The y-axis represents the time each algorithm needs in order to find the order of debugging. Differernt shapes of marker indicates different tasks. 
+An example aggregated figure is shown below. This figure is used to compare different algorithms quantitatively. The x-axis represents the time each algorithm needs in order to find the order of debugging. Differernt shapes of marker indicates different tasks. The y-axis represents the portion of data points each algorithm needs to inspect, in order to achieve a high enough accuracy (95% of the accuracy on the cleaned training dataset). The y-axis represents the time each algorithm needs in order to find the order of debugging. Differernt shapes of marker indicates different tasks. 
 
-Intuitively, if the algorithm is more on left, the algorithm is more efficient - meaning that it can achieve the target accuracy with less number of inspections. In the meanwhile, if the algorithm is lower, then the algorithm takes less time to perform the valuation.
+Intuitively, if the algorithm is higher, the algorithm is more efficient - meaning that it can achieve the target accuracy with less number of inspections. In the meanwhile, if the algorithm is more on left, then the algorithm takes less time to perform the valuation - meaning that it can perform the valuation in shorter time.
 
 <img src='assets/fraction_fixes_speed.png' width='256px'>
