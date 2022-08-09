@@ -54,8 +54,8 @@ tasks:
     val_size: 100
 
 baselines:
-  #  - name: neighbor_shapley (datascope)
+  - name: neighbor_shapley (datascope)
   - name: random
-  #  - name: mc_shapley
-  #  - name: influence_function
+  - name: mc_shapley
+  - name: influence_function
 
