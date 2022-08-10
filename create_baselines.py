@@ -10,6 +10,7 @@ from baselines.datascope_wrapper import ShapleyAppraiser
 from baselines.random_pick import RandomAppraiser
 from datascope.importance.shapley import ImportanceMethod
 from baselines.influence_function import InfluenceFunctionAppraiser
+from baselines.debugging import CustomAppraiser
 
 if __name__ == "__main__":
     is_docker = False
@@ -24,7 +25,8 @@ if __name__ == "__main__":
 
     baselines = []
         # we re-initialise the appraisers for each task
-
+    baselines.append(CustomAppraiser())
+    
     for appraiser in setup['baselines']:
         if appraiser['name'] == 'mc_shapley':
             importance_appraiser = ShapleyAppraiser(
