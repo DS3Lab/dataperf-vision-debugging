@@ -1,0 +1,44 @@
+name: MLCommons DataPerf Vision Example
+description: MLCommons DataPerf integration with MLCube
+authors:
+  - { name: "MLCommons Best Practices Working Group" }
+
+platform:
+  accelerator_count: 0
+
+docker:
+  # Image name.
+  image: mlcommons/dataperf_vision_debugging:0.0.1
+  # Docker build context relative to $MLCUBE_ROOT. Default is `build`.
+  build_context: "."
+  # Docker file name within docker build context, default is `Dockerfile`.
+  build_file: "Dockerfile_mlcube"
+
+tasks:
+  download:
+    # Download data
+    parameters:
+      inputs: { parameters_file: { type: file, default: parameters.yaml } }
+      outputs: { output_path: ./ }
+
+  create_baselines:
+    # Run selection script
+    parameters:
+      inputs: { embedding_folder: embeddings/, groundtruth_folder: data/ }
+      outputs: { submission_folder: submissions/ }
+
+  evaluate:
+    # Run evaluation script
+    parameters:
+      inputs:
+        {
+          submission_folder: submissions/,
+          groundtruth_folder: data/,
+          embedding_folder: embeddings/,
+        }
+      outputs: { results_folder: results/ }
+
+  plot:
+    # Run plotter script
+    parameters:
+      inputs: { results_folder: results/ }

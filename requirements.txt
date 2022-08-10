@@ -10,3 +10,5 @@ pandas
 xgboost
 seaborn
 loguru
+gdown
+typer
