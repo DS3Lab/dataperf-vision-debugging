@@ -41,4 +41,4 @@ tasks:
   plot:
     # Run plotter script
     parameters:
-      inputs: { results_folder: results/ }
+      inputs: { results_folder: results/, submission_folder: submissions/}

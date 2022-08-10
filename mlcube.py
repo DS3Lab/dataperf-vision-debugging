@@ -67,12 +67,17 @@ class PlotTask:
     """Execute plot script"""
 
     @staticmethod
-    def run(results_folder: str) -> None:
+    def run(results_folder: str, submission_folder: str) -> None:
 
         os.symlink(results_folder, "results")
+        os.symlink(submission_folder, "submissions")
         cmd = "python3 plotter.py"
         splitted_cmd = cmd.split()
+        process = subprocess.Popen(splitted_cmd, cwd=".")
+        process.wait()
 
+        cmd = "python3 plotter_speed_2.py"
+        splitted_cmd = cmd.split()
         process = subprocess.Popen(splitted_cmd, cwd=".")
         process.wait()
 
@@ -107,8 +112,11 @@ def evaluate(
 
 
 @typer_app.command("plot")
-def plot(results_folder: str = typer.Option(..., "--results_folder"),):
-    PlotTask.run(results_folder)
+def plot(
+    results_folder: str = typer.Option(..., "--results_folder"),
+    submission_folder: str = typer.Option(..., "--submission_folder"),
+):
+    PlotTask.run(results_folder, submission_folder)
 
 
 if __name__ == "__main__":
