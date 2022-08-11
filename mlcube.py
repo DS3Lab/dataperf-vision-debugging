@@ -31,7 +31,7 @@ class CreateBaselinesTask:
     ) -> None:
         os.symlink(embedding_folder, "embeddings")
         os.symlink(groundtruth_folder, "data")
-        shutil.rmtree("submissions")
+        shutil.rmtree("submissions", ignore_errors=True)
         os.symlink(submission_folder, "submissions")
         cmd = "python3 create_baselines.py"
         splitted_cmd = cmd.split()
