@@ -19,7 +19,7 @@ mlcube run --task=download -Pdocker.build_strategy=always
 mlcube run --task=create_baselines -Pdocker.build_strategy=always
 
 # Run evaluation
-mlcube run --task=main -Pdocker.build_strategy=always
+mlcube run --task=evaluate -Pdocker.build_strategy=always
 
 # Run plotter
 mlcube run --task=plot -Pdocker.build_strategy=always
