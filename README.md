@@ -145,6 +145,7 @@ An example figure for a single task is shown below. The x-axis represents the nu
 <p align="center">
 <img src='assets/01g317-flipped_evaluation.png' width='256px'>
 </p>
+
 **Aggregated Figure**
 
 An example aggregated figure is shown below. This figure is used to compare different algorithms quantitatively. The x-axis represents the time each algorithm needs in order to find the order of debugging. Differernt shapes of marker indicates different tasks. The y-axis represents the portion of data points each algorithm needs to inspect, in order to achieve a high enough accuracy (95% of the accuracy on the cleaned training dataset). The y-axis represents the time each algorithm needs in order to find the order of debugging. Differernt shapes of marker indicates different tasks. 
