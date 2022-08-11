@@ -2,4 +2,6 @@
 backup/
 results/
 outdir/
+workspace/*
+!workspace/parameters.yaml
 submissions/*
