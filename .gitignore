@@ -5,3 +5,4 @@ outdir/
 workspace/*
 !workspace/parameters.yaml
 submissions/*
+*.sif

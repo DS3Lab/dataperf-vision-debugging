@@ -56,6 +56,6 @@ tasks:
 baselines:
   - name: neighbor_shapley (datascope)
   - name: random
-  - name: mc_shapley
+  # - name: mc_shapley
   - name: influence_function
 

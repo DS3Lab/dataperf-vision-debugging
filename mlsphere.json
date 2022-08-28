@@ -1,0 +1,14 @@
+{
+    "recipe":"debugging.def",
+    "target":"dataperf_debugging.sif",
+    "scripts":{
+        "create_baselines": "python3 create_baselines.py"
+    },
+    "pwd":"/app",
+    "bind": {
+        "submissions":"/app/submissions",
+        "results":"/app/results",
+        "outdir":"/app/outdir"
+    },
+    "nvidia": false
+}
