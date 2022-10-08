@@ -5,16 +5,16 @@ import numpy as np
 from classifier import LogisticClassifier as Classifier
 from utils import fix,calc_auc_from_submission
 import pandas as pd
-from my_debug.selection import CustomAppraiser
+# from my_debug.selection import CustomAppraiser
 import json
 
-submission_path = "../submissions/"
+submission_path = "./submissions/"
 train_size = 300
-results_path = "../results/"
+results_path = "./results/"
 
 if __name__=="__main__":
     # in dynabench submissions, we take all files under submission folder
-    submissions = [x for x in os.listdir(submission_path) if x.endswith(".json")]
+    submissions = [x for x in os.listdir(submission_path) if x.endswith(".txt")]
     tasks = set([x.split("_")[0] for x in submissions])
     for task in tasks:
         submitted_evaluations = []
@@ -66,3 +66,4 @@ if __name__=="__main__":
         }
         with open(os.path.join(results_path, f"{task}_evaluation.json"), "w") as f:
             json.dump(result, f)
+os._exit(0)
