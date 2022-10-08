@@ -113,3 +113,4 @@ if __name__ == "__main__":
     results_path = setup['paths']['results_folder']
     submission_path = setup['paths']['submission_folder']
     run_plotting(results_path)
+os._exit(0)

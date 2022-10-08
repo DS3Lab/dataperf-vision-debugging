@@ -1,6 +1,6 @@
 import json
 import os
-from app.utils import fix
+from utils import fix,calc_auc_from_submission
 from pyarrow import parquet as pq
 from classifier import LogisticClassifier as Classifier
 import numpy as np
@@ -9,8 +9,6 @@ import pandas as pd
 import yaml
 from yaml import Loader
 import sys
-from app.utils import calc_auc_from_submission
-
 
 def run_correction_eval():
     is_docker = False
@@ -28,9 +26,7 @@ def run_correction_eval():
 
     for task in setup["tasks"]:
         data_id = task["data_id"]
-        noise_level = task["noise_level"]
         train_size = task["train_size"]
-        test_size = task["test_size"]
         groud_truth = os.path.join("data", f"dataset_{data_id}_train.csv")
         gt_df = pd.read_csv(groud_truth)
 
@@ -65,9 +61,8 @@ def run_correction_eval():
             with open(submission_file, "r") as f:
                 lines = f.readlines()
             proposed_fixes = [int(x.rstrip()) for x in lines]
-            progress_bar = tqdm(range(1, train_size+1))
             for i in range(1, train_size+1):
-                progress_bar.set_description(f"Budget {i}")
+                print(f"Evaluating {method} {i}/{train_size}", flush=True)
                 # perform the fix, reload the train_X, train_y
                 new_train_set, len_fixes = fix(
                     proposed_fixes[:i], train_file, i, gt_df)
@@ -75,7 +70,6 @@ def run_correction_eval():
                     "encoding").to_numpy()), np.vstack(new_train_set.column("label").to_numpy())
                 new_train_X = new_train_X.astype(np.float32)
                 new_train_y = new_train_y.astype(np.float32)
-                
                 # re-initialise and re-fit the classifier
                 new_clf = Classifier()
                 new_clf.fit(new_train_X, new_train_y)
@@ -86,8 +80,6 @@ def run_correction_eval():
                     "fixes": len_fixes,
                 }
                 )
-                progress_bar.update(1)
-                progress_bar.set_postfix(acc=after_acc, method=method)
         """
         Here we calculate the auc score with the submitted_evaluations
         """
@@ -102,3 +94,4 @@ def run_correction_eval():
 
 if __name__ == "__main__":
     run_correction_eval()
+os._exit(0)

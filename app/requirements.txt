@@ -1,14 +1,10 @@
-tensorflow_hub
-tensorflow_datasets
 pyyaml
 torch
 datascope==0.0.3
-torch
 pyarrow
 tqdm
 pandas
 xgboost
-seaborn
 loguru
 gdown
-typer
+seaborn

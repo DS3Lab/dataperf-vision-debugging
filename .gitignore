@@ -6,3 +6,5 @@ workspace/*
 !workspace/parameters.yaml
 submissions/*
 *.sif
+.cache/
+*.zip

@@ -10,7 +10,7 @@ from baselines.datascope_wrapper import ShapleyAppraiser
 from baselines.random_pick import RandomAppraiser
 from datascope.importance.shapley import ImportanceMethod
 from baselines.influence_function import InfluenceFunctionAppraiser
-from baselines.debugging import CustomAppraiser
+from my_debug.selection import CustomAppraiser
 
 if __name__ == "__main__":
     is_docker = False
@@ -79,3 +79,4 @@ if __name__ == "__main__":
                     f.write(f"{item}\n")
             with open(os.path.join(setup['paths']['submission_folder'], f"time_{task['data_id']}_{appraiser.name}.txt"), 'w+') as f:
                 f.write(f"{end-start}")
+os._exit(0)

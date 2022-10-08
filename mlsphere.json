@@ -1,14 +1,26 @@
 {
-    "recipe":"debugging.def",
-    "target":"dataperf_debugging.sif",
-    "scripts":{
-        "create_baselines": "python3 create_baselines.py"
+    "recipe": "debugging.def",
+    "target": "dataperf_debugging.sif",
+    "scripts": {
+        "create_baselines": "python3 create_baselines.py",
+        "evaluate": "python3 main.py",
+        "plot": "python3 plotter.py && python3 plotter_speed_2.py",
+        "dynabench": "python3 dynabench.py"
     },
-    "pwd":"/app",
+    "pull": "https://cdn.yao.sh/dataperf/dataperf_debugging.sif",
+    "pwd": "/app",
     "bind": {
-        "submissions":"/app/submissions",
-        "results":"/app/results",
-        "outdir":"/app/outdir"
+        "submissions": "/app/submissions",
+        "results": "/app/results",
+        "outdir": "/app/outdir",
+        "selection_algorithm": "/app/my_debug"
     },
+    "pipeline": [
+        "create_baselines",
+        "evaluate",
+        "plot"
+    ],
+    "upload": "results/",
+    "sign": true,
     "nvidia": false
 }

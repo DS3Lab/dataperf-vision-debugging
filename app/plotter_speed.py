@@ -7,7 +7,6 @@ import sys
 import yaml
 from yaml import Loader
 
-
 def get_cost_time(row):
     row = row.to_dict()
     method = row['method']

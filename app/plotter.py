@@ -88,3 +88,4 @@ if __name__=="__main__":
     
     results_path = setup['paths']['results_folder']
     run_plotting(results_path)
+os._exit(0)

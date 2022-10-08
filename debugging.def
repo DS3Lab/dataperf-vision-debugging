@@ -1,5 +1,5 @@
 Bootstrap: library
-From: ubuntu:22.04
+From: ubuntu:20.04
 
 %files
     ./app /app
@@ -12,9 +12,9 @@ From: ubuntu:22.04
     pip3 install -r /app/requirements.txt
     mkdir /app/submissions/
     mkdir /app/results/
-    
+    mkdir /app/outdir/
+
 %runscript
-    echo "Container was created $NOW"
     echo "Arguments received: $*"
     exec echo "$@"
 
@@ -25,14 +25,3 @@ From: ubuntu:22.04
 %help
     This is a demo container used to illustrate a def file that uses all
     supported sections.
-
-# then below are useful commands
-
-%apprun create_baselines
-    exec python3 /app/create_baselines.py
-
-%applabels foo
-   DEBUGGING BASELINES
-
-%apphelp foo
-    This is the help for foo.

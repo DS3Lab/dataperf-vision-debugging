@@ -1,8 +1,8 @@
 paths:
   embedding_folder: embeddings/
   groundtruth_folder: data/
-  submission_folder: submissions/
-  results_folder: results/
+  submission_folder: /app/submissions/
+  results_folder: /app/results/
 
 tasks:
   - data_id: 01g317-flipped
@@ -10,7 +10,7 @@ tasks:
     noise_level: 0.3
     test_size: 500
     val_size: 100
-  
+
   - data_id: 04hgtk-flipped
     train_size: 300
     noise_level: 0.3
@@ -54,8 +54,8 @@ tasks:
     val_size: 100
 
 baselines:
-  - name: neighbor_shapley (datascope)
+  # - name: neighbor_shapley (datascope)
   - name: random
   # - name: mc_shapley
-  - name: influence_function
+  # - name: influence_function
 
