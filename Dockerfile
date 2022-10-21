@@ -5,7 +5,7 @@ RUN apt update -y && apt install gcc -y
 COPY requirements.txt /app/requirements.txt
 RUN pip install -r /app/requirements.txt
 
-COPY . /app/
+COPY ./app /app/
 
 WORKDIR /app/
 

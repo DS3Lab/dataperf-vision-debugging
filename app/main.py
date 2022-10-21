@@ -1,6 +1,6 @@
 import json
 import os
-from utils import fix
+from app.utils import fix
 from pyarrow import parquet as pq
 from classifier import LogisticClassifier as Classifier
 import numpy as np
@@ -9,7 +9,7 @@ import pandas as pd
 import yaml
 from yaml import Loader
 import sys
-from utils import calc_auc_from_submission
+from app.utils import calc_auc_from_submission
 
 
 def run_correction_eval():

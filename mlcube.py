@@ -7,7 +7,6 @@ import shutil
 
 typer_app = typer.Typer()
 
-
 class DownloadTask:
     """Download dataset"""
 
@@ -38,7 +37,6 @@ class CreateBaselinesTask:
 
         process = subprocess.Popen(splitted_cmd, cwd=".")
         process.wait()
-
 
 class EvaluateTask:
     """Execute evaluation script"""

@@ -1,6 +1,6 @@
 import json
 import os
-from utils import fix
+from app.utils import fix
 from pyarrow import parquet as pq
 from classifier import XGBClassifier as Classifier
 import numpy as np
@@ -8,7 +8,7 @@ from tqdm import tqdm
 import pandas as pd
 import yaml
 from yaml import Loader
-from utils import calc_auc_from_submission
+from app.utils import calc_auc_from_submission
 
 def run_correction_eval(
     setup_yaml_path: str = None,
