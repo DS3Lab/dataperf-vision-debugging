@@ -6,7 +6,6 @@ virtualenv -p python3 ./env && source ./env/bin/activate && pip install mlcube-d
 
 # Fetch the vision selection repo
 git clone https://github.com/DS3Lab/dataperf-vision-debugging && cd ./dataperf-vision-debugging
-git fetch origin pull/3/head:feature/mlcube_integration && git checkout feature/mlcube_integration
 ```
 
 ### Execute single tasks with MLCube
@@ -15,7 +14,7 @@ git fetch origin pull/3/head:feature/mlcube_integration && git checkout feature/
 # Download and extract dataset
 mlcube run --task=download -Pdocker.build_strategy=always
 
-# Run selection
+# Create baselines submission (skip this if you have already done so, or you want to evaluate your submissions only)
 mlcube run --task=create_baselines -Pdocker.build_strategy=always
 
 # Run evaluation

@@ -1,6 +1,5 @@
 import json
 import os
-from app.utils import fix
 from pyarrow import parquet as pq
 from classifier import LogisticClassifier as Classifier
 import numpy as np
@@ -9,8 +8,7 @@ import pandas as pd
 import yaml
 from yaml import Loader
 import sys
-from app.utils import calc_auc_from_submission
-
+from utils import calc_auc_from_submission, fix
 
 def run_correction_eval():
     is_docker = False
@@ -25,12 +23,9 @@ def run_correction_eval():
 
     submission_path = setup['paths']['submission_folder']
     results_path = setup['paths']['results_folder']
-
     for task in setup["tasks"]:
         data_id = task["data_id"]
-        noise_level = task["noise_level"]
         train_size = task["train_size"]
-        test_size = task["test_size"]
         groud_truth = os.path.join("data", f"dataset_{data_id}_train.csv")
         gt_df = pd.read_csv(groud_truth)
 
@@ -84,8 +79,7 @@ def run_correction_eval():
                     "submission": submission.replace(".txt", "").replace(f"{data_id}_", ""),
                     "accuracy": after_acc,
                     "fixes": len_fixes,
-                }
-                )
+                })
                 progress_bar.update(1)
                 progress_bar.set_postfix(acc=after_acc, method=method)
         """

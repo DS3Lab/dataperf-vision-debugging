@@ -48,8 +48,9 @@ class EvaluateTask:
         embedding_folder: str,
         results_folder: str,
     ) -> None:
-
-        shutil.rmtree("submissions")
+        # ignore errors should only happen when running for the first time
+        # when there is no submissions folder
+        shutil.rmtree("submissions", ignore_errors=True)
         os.symlink(embedding_folder, "embeddings")
         os.symlink(submission_folder, "submissions")
         os.symlink(groundtruth_folder, "data")
