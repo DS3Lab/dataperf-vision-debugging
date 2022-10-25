@@ -70,12 +70,12 @@ class PlotTask:
 
         os.symlink(results_folder, "results")
         os.symlink(submission_folder, "submissions")
-        cmd = "python3 plotter.py"
+        cmd = "python3 plotter_pertask.py"
         splitted_cmd = cmd.split()
         process = subprocess.Popen(splitted_cmd, cwd=".")
         process.wait()
 
-        cmd = "python3 plotter_speed_2.py"
+        cmd = "python3 plotter_overall.py"
         splitted_cmd = cmd.split()
         process = subprocess.Popen(splitted_cmd, cwd=".")
         process.wait()
