@@ -1,7 +1,7 @@
 import numpy as np
 import pyarrow as pa
-from sklearn import metrics
 from loguru import logger
+
 def fix(proposed_fixes, train, budget, gt_df):
     if len(proposed_fixes) > budget:
         raise ValueError("Submission takes more budget than expected, {}>{}".format(len(proposed_fixes), budget))

@@ -1,4 +1,3 @@
-from numpy.typing import ArrayLike
 from typing import List
 
 class Appraiser():

@@ -29,8 +29,6 @@ def aggregate_data(evaluation_file, result_folder):
     return data
 
 def plot(data, result_folder, score_metric='auc'):
-    data = data[data['method']!='my_debug']
-    
     sns.set(
         font="DejaVu Sans",
         context="paper",

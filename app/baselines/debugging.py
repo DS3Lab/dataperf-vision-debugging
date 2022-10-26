@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
-from classifier import LogisticClassifier as Classifier
+from classifier import XGBClassifier as Classifier
 from appraiser import Appraiser
 
 class CustomAppraiser(Appraiser):

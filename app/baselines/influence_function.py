@@ -1,5 +1,6 @@
 import torch
 from appraiser import Appraiser
+# we use LogisticClassifier here as a proxy
 from classifier import LogisticClassifier as Classifier
 from baselines.ptif.calc_influence_function import calc_img_wise
 from torch.utils.data import TensorDataset, DataLoader

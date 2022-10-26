@@ -1,4 +1,3 @@
-from loguru import logger
 import numpy as np
 from pyarrow import parquet as pq
 import sklearn
@@ -6,8 +5,6 @@ import torch
 import xgboost
 import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
-from sklearn.linear_model import LogisticRegressionCV
-
 
 class XGBClassifier():
     def __init__(self):

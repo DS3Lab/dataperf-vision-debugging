@@ -3,7 +3,7 @@ from sklearn import pipeline
 from datascope.importance.common import SklearnModelAccuracy
 from datascope.importance.shapley import ShapleyImportance, ImportanceMethod
 from appraiser import Appraiser
-from classifier import LogisticClassifier as Classifier
+from classifier import XGBClassifier as Classifier
 
 utility_pipeline = pipeline.make_pipeline(
     Classifier()
