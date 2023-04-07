@@ -2,7 +2,7 @@ tensorflow_hub
 tensorflow_datasets
 pyyaml
 torch
-datascope==0.0.3
+datascope==0.0.8
 torch
 pyarrow
 tqdm
