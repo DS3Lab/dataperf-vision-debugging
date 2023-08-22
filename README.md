@@ -1,7 +1,5 @@
 # `dataperf-vision-debugging`: A Data-Centric Vision Benchmark for Training Data Debugging
 
-<img src="https://together.xyz/assets/images/ai_platform.svg"/>
-
 ### **Current version:** alpha
 
 This github repo serves as the starting point for offline evaluation of submissions for the training data debugging vision benchmark. The offline evaluation can be run on both your local environment as well as a containerized image for reproducibility of score results.
